@@ -1,5 +1,5 @@
 import Card from '../components/card/card'
-import TableCoins from '../components/table/table-coins'
+import ListCoins from '../components/list-coins/list-coins'
 
 
 import './home.css'
@@ -9,7 +9,6 @@ function Home() {
     return (
         <main>
             <div className='hero'>
-                hero
             </div>
             <section className='top_five'>
                 <h3>
@@ -29,7 +28,7 @@ function Home() {
                     }
                 </div>
             </section>
-            <TableCoins />
+            <ListCoins />
         </main>
     )
 }

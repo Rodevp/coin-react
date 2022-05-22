@@ -7,13 +7,13 @@ export const getCoins = async (): Promise<any> => {
 
     try {
         
-        const response = fetch('https://coinranking1.p.rapidapi.com/coins', {
+        const response: Promise<Response> = fetch('https://coinranking1.p.rapidapi.com/coins', {
             method: 'GET',
             headers
         })
-
-        const data =  (await response).json()
-
+        
+        const data = (await response).json()
+        
         return await data
 
     } catch (error) {

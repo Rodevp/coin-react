@@ -1,5 +1,4 @@
 .hero {
-    width: 100vw;
     height: 200px;
     background-color: #e7f0fd;
     position: relative;
@@ -25,7 +24,7 @@
     font-weight: 600;
     font-size: 1.4rem;
     font-family: var(--font);
-    border-bottom: 1px solid black;
+    border-bottom: 1px solid #e3e4e5;
 }
 
 .content_top_4 {

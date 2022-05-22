@@ -22,7 +22,7 @@ function Card({ image, name, price, symbol }: Props) {
                 card.classList.add('fade_in')
             })
 
-        }, 1000)
+        }, 500)
 
         return () => {
             clearTimeout(idTimeOut)
