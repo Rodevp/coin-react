@@ -1,21 +1,19 @@
-import { useEffect } from 'react'
-import { getCoins } from './services/api-coin'
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import Home from './screens/home'
+
 
 function App() {
-  
-
-
-
-  useEffect( () => {
-
-    getCoins()
-
-  }, [])
 
   return (
-    <div>
-      <h1>Hi</h1>
-    </div>
+    <>
+      <BrowserRouter>
+
+        <Routes>
+            <Route  path='/'  element={<Home />} />
+        </Routes>
+      
+      </BrowserRouter>
+    </>
   )
 }
 
