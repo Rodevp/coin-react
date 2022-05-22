@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { dataMapCoin } from '../../helpers/data'
 import { getCoins } from '../../services/api-coin'
 import { Coin } from '../../types'
 
@@ -16,17 +17,9 @@ function ListCoins() {
 
     getCoins()
       .then( response => {
+        
         const data = response.data.coins
-        const coinsData: Array<Coin> = data.map( ( coin: any ) => {
-          return {
-            uuid: coin.uuid,
-            name: coin.name,
-            price: coin.price,
-            marketCap: coin.marketCap,
-            image: coin.iconUrl,
-            symbol: coin.symbol
-          }
-        })
+        const coinsData: Array<Coin> = dataMapCoin(data)
         
         setCoins(coinsData)
 
