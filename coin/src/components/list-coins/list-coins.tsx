@@ -1,21 +1,40 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import { getCoins } from '../../services/api-coin'
+import { Coin } from '../../types'
+
 
 import './list-coin.css'
 
-const listCoins = [
-  {
-    uuid: 'Qwsogvtv82FCd',
-    name: 'Bitcoin',
-    image: 'https://cdn.coinranking.com/bOabBYkcX/bitcoin_btc.svg',
-    price: 29915.001,
-    marketCap: 569.79
-  }
-
-]
-
-const headers: Array<string> = ['Nombre', 'Precio', 'Market Cap', 'Acciones']
 
 function ListCoins() {
+  
+  const [coins, setCoins] = useState<Array<Coin>>([])
+
+  const headers: Array<string> = ['Nombre', 'Precio', 'Market Cap', 'Acciones']
+
+  useEffect(() => {
+
+    getCoins()
+      .then( response => {
+        const data = response.data.coins
+        const coinsData: Array<Coin> = data.map( ( coin: any ) => {
+          return {
+            uuid: coin.uuid,
+            name: coin.name,
+            price: coin.price,
+            marketCap: coin.marketCap,
+            image: coin.iconUrl,
+            symbol: coin.symbol
+          }
+        })
+        
+        setCoins(coinsData)
+
+      } )
+
+  }, [])
+
+
   return (
     <section className='list_coins'>
       <div className='head'>
@@ -27,7 +46,7 @@ function ListCoins() {
       </div>
       <section className='coins'>
         {
-          listCoins.map((coin) => (
+          coins !== undefined && coins.map((coin) => (
             <div key={coin.uuid} className='coin'>
               <p className='coin_item'>
                 <div className='content_logo'>
