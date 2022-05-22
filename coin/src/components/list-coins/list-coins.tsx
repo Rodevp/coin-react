@@ -1,29 +1,45 @@
 import { useEffect, useState } from 'react'
 import { dataMapCoin } from '../../helpers/data'
 import { getCoins } from '../../services/api-coin'
-import { Coin } from '../../types'
-
+import { Coin, CoinTop } from '../../types'
+import { useAtom } from 'jotai'
+import { topCoinsAtom } from '../../states/coins-top'
 
 import './list-coin.css'
 
 
 function ListCoins() {
-  
+
   const [coins, setCoins] = useState<Array<Coin>>([])
+  const [, setTopCoins] = useAtom(topCoinsAtom)
 
   const headers: Array<string> = ['Nombre', 'Precio', 'Market Cap', 'Acciones']
 
   useEffect(() => {
 
     getCoins()
-      .then( response => {
-        
+      .then(response => {
+
         const data = response.data.coins
         const coinsData: Array<Coin> = dataMapCoin(data)
-        
-        setCoins(coinsData)
 
-      } )
+        const topCoins: Array<CoinTop> = coinsData.map((coin) => {
+          
+          return {
+            image: coin.image,
+            name: coin.name,
+            price: coin.price,
+            symbol: coin.symbol
+          }
+
+        })
+
+        const topFourCoins = topCoins.slice(0, 4)
+
+        setCoins(coinsData)
+        setTopCoins(topFourCoins)
+
+      })
 
   }, [])
 

@@ -6,3 +6,11 @@ export interface Coin {
     symbol: string,
     marketCap: string
 }
+
+
+export interface CoinTop {
+    image: string
+    name: string
+    price: number
+    symbol: string
+}
