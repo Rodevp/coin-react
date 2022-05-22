@@ -1,16 +1,20 @@
-import { useState } from 'react'
+import { useEffect } from 'react'
+import { getCoins } from './services/api-coin'
 
 function App() {
-  const [count, setCount] = useState<number>(0)
+  
 
-  const increment = () => {
-    setCount(count + 1)
-  }
+
+
+  useEffect( () => {
+
+    getCoins()
+
+  }, [])
 
   return (
     <div>
-      <h1>{count}</h1>
-      <button onClick={increment} >Incrementar</button>
+      <h1>Hi</h1>
     </div>
   )
 }
