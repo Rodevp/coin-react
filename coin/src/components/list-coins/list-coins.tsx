@@ -22,13 +22,14 @@ function ListCoins() {
 
         const data = response.data.coins
         const coinsData: Array<Coin> = dataMapCoin(data)
-
+        
+        console.log('data -> ', coinsData[0].price.toFixed(4))
         const topCoins: Array<CoinTop> = coinsData.map((coin) => {
           
           return {
             image: coin.image,
             name: coin.name,
-            price: coin.price,
+            price: Number( coin.price.toFixed(4) ),
             symbol: coin.symbol
           }
 

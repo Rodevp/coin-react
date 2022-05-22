@@ -1,10 +1,13 @@
 import Card from '../components/card/card'
 import ListCoins from '../components/list-coins/list-coins'
-
+import { useAtomValue } from 'jotai'
+import { topCoinsAtom } from '../states/coins-top'
 
 import './home.css'
 
 function Home() {
+
+    const topCoins = useAtomValue(topCoinsAtom)
 
     return (
         <main>
@@ -16,13 +19,13 @@ function Home() {
                 </h3>
                 <div className='content_top_4'>
                     {
-                        [1, 2, 3, 4].map((n) => (
+                        topCoins.map((coin, i) => (
                             <Card 
-                                key={n}
-                                name='Bitcoin'
-                                image='https://cdn.coinranking.com/bOabBYkcX/bitcoin_btc.svg'
-                                symbol='BTC'
-                                price={20000}
+                                key={i}
+                                name={coin.name}
+                                image={coin.image}
+                                symbol={coin.symbol}
+                                price={coin.price}
                             />
                         ))
                     }

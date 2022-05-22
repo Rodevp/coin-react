@@ -6,7 +6,7 @@ export const dataMapCoin = (coins: any): Array<Coin> => {
         return {
           uuid: coin.uuid,
           name: coin.name,
-          price: coin.price,
+          price: Number( coin.price ),
           marketCap: coin.marketCap,
           image: coin.iconUrl,
           symbol: coin.symbol
