@@ -3,8 +3,9 @@ export interface Coin {
     image: string
     name: string
     price: number
-    symbol: string,
+    symbol: string
     marketCap: string
+    color: string
 }
 
 

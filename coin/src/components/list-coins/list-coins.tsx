@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { dataMapCoin } from '../../helpers/data'
 import { getCoins } from '../../services/api-coin'
 import { Coin, CoinTop } from '../../types'
@@ -15,6 +16,8 @@ function ListCoins() {
 
   const headers: Array<string> = ['Nombre', 'Precio', 'Market Cap', 'Acciones']
 
+  const navigate = useNavigate()
+
   useEffect(() => {
 
     getCoins()
@@ -23,7 +26,6 @@ function ListCoins() {
         const data = response.data.coins
         const coinsData: Array<Coin> = dataMapCoin(data)
         
-        console.log('data -> ', coinsData[0].price.toFixed(4))
         const topCoins: Array<CoinTop> = coinsData.map((coin) => {
           
           return {
@@ -43,6 +45,11 @@ function ListCoins() {
       })
 
   }, [])
+
+  const goToDetailOfCoin = (id: string, color: string) => {
+    window.localStorage.setItem('color', color)
+    navigate(`/info/${id}`, { replace: true } )
+  }
 
 
   return (
@@ -67,7 +74,10 @@ function ListCoins() {
               <p className='coin_item'>{coin.price}</p>
               <p className='coin_item'>{coin.marketCap}</p>
               <p className='coin_item'>
-                <button className='btn_detail'>
+                <button
+                  className='btn_detail'
+                  onClick={ (e) => goToDetailOfCoin(coin.uuid, coin.color) }
+                >
                   Detalle
                 </button>
               </p>

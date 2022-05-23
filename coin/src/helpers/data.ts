@@ -9,7 +9,8 @@ export const dataMapCoin = (coins: any): Array<Coin> => {
           price: Number( coin.price ),
           marketCap: coin.marketCap,
           image: coin.iconUrl,
-          symbol: coin.symbol
+          symbol: coin.symbol,
+          color: coin.color
         }
       })
 

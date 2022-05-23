@@ -24,6 +24,11 @@ ChartJS.register(
   Legend
 )
 
+interface Dataset {
+  price: string
+  timestamp: number
+}
+
 
 function DetailCoin() {
 
@@ -32,6 +37,9 @@ function DetailCoin() {
     const [dataset, setDataset] = useState<Array<number>>([])
 
     const { id } = useParams()
+    const colorGraphic = localStorage.getItem('color') === null 
+      ?  'rgb(255, 99, 132)'
+      : localStorage.getItem('color')
 
     //char config
     const options = {
@@ -43,26 +51,23 @@ function DetailCoin() {
       datasets: [
         {
           data: dataset,
-          borderColor: 'rgb(255, 99, 132)',
-          backgroundColor: 'rgba(255, 99, 132, 0.5)',
+          borderColor: colorGraphic,
+          backgroundColor: colorGraphic,
         }
       ]
     }
 
     useEffect(() => {
 
-      console.log('effect')
-      
      getHistoryCoin(period, id ? id : '')
         .then(response => {
           
-          console.log(response)
-
-          const labels = response.data.history.map( (data: any) => data.timestamp)  
-          const values = response.data.history.map( (data: any) => Number( Number(data.price).toFixed(5) ) )  
+          const labels = response.data.history.map( ( data: Dataset ) => data.timestamp)  
+          const values = response.data.history.map( ( data: Dataset ) => Number( Number(data.price).toFixed(5) ) )  
 
           setDataset(values)
           setLabels(labels)
+
       })
 
     }, [period] )
