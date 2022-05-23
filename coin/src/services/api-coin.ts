@@ -20,3 +20,25 @@ export const getCoins = async (): Promise<any> => {
         console.error('error -> ', error)
     }
 }
+
+export const getHistoryCoin = async (period: string, id: string): Promise<any> => {
+    
+    const URL = `https://coinranking1.p.rapidapi.com/coin/${id}/history?timePeriod=${period}`
+    
+    console.log(URL)
+
+    try {
+        
+        const response: Promise<Response> = fetch(URL, {
+            method: 'GET',
+            headers
+        })
+        
+        const data = (await response).json()
+        
+        return await data
+
+    } catch (error) {
+        console.error('error -> ', error)
+    }
+}
