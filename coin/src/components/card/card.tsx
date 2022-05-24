@@ -33,7 +33,7 @@ function Card({ image, name, price, symbol }: Props) {
     return (
         <div className='card' id='card'>
             <section className='card_header'>
-                <img src={image} alt='logo' />
+                <img src={image} alt='logo' loading='lazy' />
                 <p className='card_title'>
                     {name}
                     <span>

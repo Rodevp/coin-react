@@ -23,8 +23,6 @@ ChartJS.register(
     Legend
 )
 
-
-
 interface Props {
     options: {
         responsive: boolean

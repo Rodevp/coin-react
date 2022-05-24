@@ -67,7 +67,7 @@ function ListCoins() {
             <div key={coin.uuid} className='coin'>
               <p className='coin_item'>
                 <div className='content_logo'>
-                  <img src={coin.image} alt='logo' />
+                  <img src={coin.image} alt='logo' loading='lazy' />
                 </div>
                 {coin.name}
               </p>
