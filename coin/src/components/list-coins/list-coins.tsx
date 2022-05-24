@@ -48,15 +48,14 @@ function ListCoins() {
 
   }, [])
 
-  const goToDetailOfCoin = (id: string, { color, image, symbol, name}: Coin) => {
-    setCoinDetail({
-      ...coin,
-      name, 
-      symbol,
-      image
-    })
-    window.localStorage.setItem('color', color)
-    navigate(`/info/${id}`, { replace: true } )
+  const changeColor = (color: string) => { window.localStorage.setItem('color', color)  }
+
+  const changeDetailInfoState = (coin: Coin) => { setCoinDetail(coin) }
+
+  const goToDetailOfCoin = (coin: Coin) => {
+    changeDetailInfoState(coin)
+    changeColor(coin.color)
+    navigate(`/info/${coin.uuid}`, { replace: true } )
   }
 
 
@@ -84,7 +83,7 @@ function ListCoins() {
               <p className='coin_item'>
                 <button
                   className='btn_detail'
-                  onClick={ (e) => goToDetailOfCoin(coin.uuid, coin) }
+                  onClick={ (e) => goToDetailOfCoin(coin) }
                 >
                   Detalle
                 </button>
