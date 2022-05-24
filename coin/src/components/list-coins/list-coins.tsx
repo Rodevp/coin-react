@@ -14,7 +14,7 @@ function ListCoins() {
 
   const [coins, setCoins] = useState<Array<Coin>>([])
   const [, setTopCoins] = useAtom(topCoinsAtom)
-  const [coin, setCoinDetail] = useAtom(detailCoin)
+  const [, setCoinDetail] = useAtom(detailCoin)
 
   const headers: Array<string> = ['Nombre', 'Precio', 'Market Cap', 'Acciones']
 

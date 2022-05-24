@@ -5,9 +5,11 @@ const headers = {
 
 export const getCoins = async (): Promise<any> => {
 
+    const URL = 'https://coinranking1.p.rapidapi.com/coins'
+
     try {
         
-        const response: Promise<Response> = fetch('https://coinranking1.p.rapidapi.com/coins', {
+        const response: Promise<Response> = fetch(URL, {
             method: 'GET',
             headers
         })
@@ -25,8 +27,6 @@ export const getHistoryCoin = async (period: string, id: string): Promise<any> =
     
     const URL = `https://coinranking1.p.rapidapi.com/coin/${id}/history?timePeriod=${period}`
     
-    console.log(URL)
-
     try {
         
         const response: Promise<Response> = fetch(URL, {

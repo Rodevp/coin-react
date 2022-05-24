@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useRef } from 'react'
 
 import './card.css'
 
@@ -11,16 +11,13 @@ interface Props {
 
 function Card({ image, name, price, symbol }: Props) {
 
+    const card: any = useRef(null)
+
     useEffect(() => {
 
-        const cards: NodeListOf<Element> = document.querySelectorAll('#card')
-        const allCards: Array<Element> = Array.from(cards)
-        
         const idTimeOut = setTimeout(() => {
 
-            allCards.forEach(card => {
-                card.classList.add('fade_in')
-            })
+            if ( !card.current.classList.contains('fade_in') ) card.current.classList.add('fade_in')
 
         }, 500)
 
@@ -31,7 +28,7 @@ function Card({ image, name, price, symbol }: Props) {
     }, [])
 
     return (
-        <div className='card' id='card'>
+        <div className='card' id='card' ref={card} >
             <section className='card_header'>
                 <img src={image} alt='logo' loading='lazy' />
                 <p className='card_title'>
