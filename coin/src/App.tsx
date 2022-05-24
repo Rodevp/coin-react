@@ -6,12 +6,13 @@ import Home from './screens/home'
 function App() {
 
   return (
-    <>
+    <div>
       <Routes>
         <Route path='/' element={<Home />} />
         <Route path='/info/:id' element={<DetailCoin />} />
+        <Route path='*' element={<h1>Pagina no encontrada</h1>} />
       </Routes>
-    </>
+    </div>
   )
 }
 

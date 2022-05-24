@@ -66,8 +66,7 @@
     font-size: 1.2rem;
     font-family: var(--font);
     text-align: center;
-    display: inline-block;
-    text-decoration: none;
+    cursor: pointer;
     color: #ffffff;
     background-color: #cc0066;
 }

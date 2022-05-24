@@ -1,5 +1,5 @@
 import { useState, useEffect, lazy, Suspense } from 'react'
-import { Link, useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import { getHistoryCoin } from '../../services/api-coin'
 import { detailCoin } from '../../states/detail-coin'
 import {  useAtomValue } from 'jotai'
@@ -44,6 +44,8 @@ function DetailCoin() {
     ]
   }
 
+  const navigate = useNavigate()
+
   useEffect(() => {
 
      getHistoryCoin(period, id ? id : '')
@@ -62,6 +64,10 @@ function DetailCoin() {
   const handleOption = (e: React.ChangeEvent<HTMLSelectElement>) => {
     let period = e.target.value
     setPeriod(period)
+  }
+
+  const goToHome = (e: React.MouseEvent<HTMLElement>) => {
+    navigate('/', { replace: true })
   }
 
 
@@ -99,9 +105,9 @@ function DetailCoin() {
           </section>
         </div>
         <div className='item_home'>
-            <Link to='/' className='link_to_home'>
+            <button className='link_to_home' onClick={goToHome}>
               Ir a home
-            </Link>
+            </button>
         </div>
       </section>
       <section
