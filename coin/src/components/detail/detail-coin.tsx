@@ -1,8 +1,11 @@
 import { useState, useEffect, lazy, Suspense } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import { getHistoryCoin } from '../../services/api-coin'
+import { detailCoin } from '../../states/detail-coin'
+import {  useAtomValue } from 'jotai'
 
 import './detail.css'
+import { Coin } from '../../types'
 
 interface Dataset {
   price: string
@@ -16,6 +19,8 @@ function DetailCoin() {
   const [period, setPeriod] = useState<string>('24h')
   const [labels, setLabels] = useState<Array<number>>([1, 2, 3, 4])
   const [dataset, setDataset] = useState<Array<number>>([1, 2, 3, 4])
+
+  const detailInfo: Coin = useAtomValue(detailCoin)
 
   const { id } = useParams()
   const colorGraphic = window.localStorage.getItem('color') === null
@@ -65,12 +70,12 @@ function DetailCoin() {
       <section className='info_coin'>
         <div className='info_item'>
           <div className='info_img'>
-            <img src='https://cdn.coinranking.com/bOabBYkcX/bitcoin_btc.svg' alt='logo' />
+            <img src={detailInfo.image} alt='logo' loading='lazy' />
           </div>
           <p className='info_name'>
-            Bitcoin
+            {detailInfo.name}
             <p className='info_symbol'>
-              BTC
+              {detailInfo.symbol}
             </p>
           </p>
         </div>

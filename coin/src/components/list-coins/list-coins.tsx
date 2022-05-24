@@ -5,6 +5,7 @@ import { getCoins } from '../../services/api-coin'
 import { Coin, CoinTop } from '../../types'
 import { useAtom } from 'jotai'
 import { topCoinsAtom } from '../../states/coins-top'
+import { detailCoin } from '../../states/detail-coin'
 
 import './list-coin.css'
 
@@ -13,6 +14,7 @@ function ListCoins() {
 
   const [coins, setCoins] = useState<Array<Coin>>([])
   const [, setTopCoins] = useAtom(topCoinsAtom)
+  const [coin, setCoinDetail] = useAtom(detailCoin)
 
   const headers: Array<string> = ['Nombre', 'Precio', 'Market Cap', 'Acciones']
 
@@ -46,7 +48,13 @@ function ListCoins() {
 
   }, [])
 
-  const goToDetailOfCoin = (id: string, color: string) => {
+  const goToDetailOfCoin = (id: string, { color, image, symbol, name}: Coin) => {
+    setCoinDetail({
+      ...coin,
+      name, 
+      symbol,
+      image
+    })
     window.localStorage.setItem('color', color)
     navigate(`/info/${id}`, { replace: true } )
   }
@@ -76,7 +84,7 @@ function ListCoins() {
               <p className='coin_item'>
                 <button
                   className='btn_detail'
-                  onClick={ (e) => goToDetailOfCoin(coin.uuid, coin.color) }
+                  onClick={ (e) => goToDetailOfCoin(coin.uuid, coin) }
                 >
                   Detalle
                 </button>
