@@ -15,3 +15,15 @@ export interface CoinTop {
     price: number
     symbol: string
 }
+
+interface DatasetChart {
+    data: Array<number>,
+    label: string,
+    borderColor: string,
+    backgroundColor: string
+}
+
+export interface DataChart {
+    labels: Array<number>
+    datasets: Array<DatasetChart>
+}

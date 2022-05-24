@@ -1,29 +1,6 @@
-import React, { useState, useEffect } from 'react'
+import { useState, useEffect, lazy, Suspense } from 'react'
 import { Link, useParams } from 'react-router-dom'
-import { Line } from 'react-chartjs-2'
 import { getHistoryCoin } from '../../services/api-coin'
-
-import {
-  Chart as ChartJS,
-  CategoryScale,
-  LinearScale,
-  PointElement,
-  LineElement,
-  Title,
-  Tooltip,
-  Legend
-} from 'chart.js'
-
-ChartJS.register(
-  CategoryScale,
-  LinearScale,
-  PointElement,
-  LineElement,
-  Title,
-  Tooltip,
-  Legend
-)
-
 
 import './detail.css'
 
@@ -32,8 +9,9 @@ interface Dataset {
   timestamp: number
 }
 
-
 function DetailCoin() {
+
+  const LineChart = lazy( () => import('../charts/line') )
 
   const [period, setPeriod] = useState<string>('24h')
   const [labels, setLabels] = useState<Array<number>>([1, 2, 3, 4])
@@ -63,16 +41,16 @@ function DetailCoin() {
 
   useEffect(() => {
 
-    //  getHistoryCoin(period, id ? id : '')
-    //     .then(response => {
+     getHistoryCoin(period, id ? id : '')
+        .then(response => {
 
-    //       const labels = response.data.history.map( ( data: Dataset ) => data.timestamp)  
-    //       const values = response.data.history.map( ( data: Dataset ) => Number( Number(data.price).toFixed(5) ) )  
+          const labels = response.data.history.map( ( data: Dataset ) => data.timestamp)  
+          const values = response.data.history.map( ( data: Dataset ) => Number( Number(data.price).toFixed(5) ) )  
 
-    //       setDataset(values)
-    //       setLabels(labels)
+          setDataset(values)
+          setLabels(labels)
 
-    //   })
+      })
 
   }, [period])
 
@@ -124,11 +102,13 @@ function DetailCoin() {
       <section
         className='content_chart'
       >
-        <Line
-          options={options}
-          data={data}
-          height={90}
-        />
+        <Suspense fallback={<h1>Cargando....</h1>}>
+            <LineChart
+              options={options}
+              data={data}
+              height={90}
+            />
+        </Suspense>
       </section>
     </div>
   )
